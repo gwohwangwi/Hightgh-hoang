@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản trị nội bộ | Highlight07</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 12px; 
+            border: 1px solid var(--glass-border); 
+            background: rgba(255,255,255,0.05); 
+            color: white; 
+            outline: none;
+        }
+        input:focus, textarea:focus {
+            border-color: var(--accent);
+        }
+        button { 
+            background: var(--accent); 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 12px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        button:hover { background: #4a6bdc; }
+        .output-box {
+            background: rgba(0,0,0,0.3);
+            border-left: 4px solid var(--accent);
+            font-family: monospace;
+            color: #a5d6ff;
+        }
+    </style>
+</head>
+<body>
+    <nav class="glass-panel" style="padding: 10px 25px; border-radius: 50px;">
+        <div class="links">
+            <a href="index.html">Trang chủ</a>
+            <a href="works.html">Tác phẩm</a>
+            <a href="upcoming.html">Dự án</a>
+            <a href="admin.html" style="color: var(--accent);">Quản trị</a>
+        </div>
+    </nav>
 
+    <div class="container">
+        <div class="glass-panel">
+            <h2 style="margin-bottom: 10px;">Công cụ Sinh Code Tự Động</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 25px;">
+                Công cụ này giúp bạn tạo nhanh mã HTML cho một tác phẩm mới mà không cần gõ thủ công. Nhập thông tin, bấm tạo và copy mã dán vào file works.html.
+            </p>
+            
+            <div class="admin-form">
+                <div>
+                    <label style="font-size: 14px; color: var(--text-muted);">Tên Truyện:</label>
+                    <input type="text" id="storyName" placeholder="Ví dụ: Đao Phủ">
+                </div>
+
+                <div>
+                    <label style="font-size: 14px; color: var(--text-muted);">Tên file ảnh (đã được tải lên thư mục assets/images):</label>
+                    <input type="text" id="imageName" placeholder="Ví dụ: dao-phu.png">
+                </div>
+
+                <div>
+                    <label style="font-size: 14px; color: var(--text-muted);">Mô tả ngắn:</label>
+                    <textarea id="storyDesc" rows="3" placeholder="Ví dụ: Câu chuyện về sự trả giá..."></textarea>
+                </div>
+
+                <button onclick="generateCode()">Tạo Mã Code</button>
+            </div>
+
+            <h3 style="margin-top: 30px; margin-bottom: 10px;">Mã HTML của bạn:</h3>
+            <textarea id="outputCode" class="output-box" rows="10" readonly placeholder="Mã sẽ xuất hiện ở đây sau khi bấm Tạo..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        function generateCode() {
+            const name = document.getElementById('storyName').value;
+            const img = document.getElementById('imageName').value;
+            const desc = document.getElementById('storyDesc').value;
+
+            // Khuôn mẫu HTML để tạo thẻ truyện
+            const code = `
+            <article class="glass-panel story-card" data-title="${name}">
+                <img src="assets/images/${img}" alt="${name}">
+                <h3>${name}</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">
+                    ${desc}
+                </p>
+            </article>`;
+            
+            document.getElementById('outputCode').value = code.trim();
+        }
+    </script>
+</body>
+</html>
